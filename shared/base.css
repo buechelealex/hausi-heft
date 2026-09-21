@@ -1,0 +1,354 @@
+/* Hausaufgabenheft — Gestaltung, die alle Aktivitäten teilen:
+   Farben, Grundraster, Karten, Knöpfe, Navigation, Eingabefelder und die
+   Aufgabenliste. Was nur eine Aktivität braucht, steht in deren eigener
+   style.css in ihrem Ordner.
+
+   Optik wie projects.abuechele.de: heller Sandton, weisse Karten, oranger
+   Akzent, Überschriften in Versalien. Alles auf Handybreite ausgelegt. */
+
+:root {
+  --bg: #faf6f2;
+  --card: #ffffff;
+  --accent: #c9762f;
+  --accent-dark: #a15d21;
+  --accent-soft: #fbeedd;
+  --text: #2b2620;
+  --muted: #8a8178;
+  --border: #ede4d8;
+  --field: #fffdfb;
+  --press: #f0e9e0;
+  --good: #3f7d55;
+  --bad: #b04a3a;
+  --bad-border: #eccfc9;
+}
+
+* { box-sizing: border-box; }
+
+/* Am Handy legt der Browser beim Antippen sonst kurz eine blaue Fläche über
+   Knöpfe und Links. Die :active-Zustände weiter unten zeigen den Druck
+   bereits selbst, darum hier abschalten. */
+* { -webkit-tap-highlight-color: transparent; }
+
+/* Schnell hintereinander getippt markiert der Browser die Aufschrift eines
+   Knopfes sonst blau, als wollte man Text kopieren. Nur die Bedienelemente,
+   damit Aufgabentexte weiter markierbar bleiben. */
+button, a, label, .chip, .page-nav { -webkit-user-select: none; user-select: none; }
+
+/* Nach dem Antippen behält der Knopf den Fokus; manche Browser zeichnen dann
+   einen blauen Rahmen. Für die Tastatur bleibt er über :focus-visible. */
+button:focus, a:focus { outline: none; }
+
+button:focus-visible, a:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 15px;
+  background: linear-gradient(180deg, #fff8f0 0%, var(--bg) 100%);
+  background-attachment: fixed;
+  color: var(--text);
+  padding: 16px 12px calc(28px + env(safe-area-inset-bottom, 0px));
+}
+
+header {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+header h1 {
+  font-size: 1.35rem;
+  margin: 0 0 2px;
+  letter-spacing: 0.4px;
+}
+
+header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.container { max-width: 480px; margin: 0 auto; }
+
+.section-title {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--muted);
+  margin: 18px 4px 8px;
+}
+
+.section-title:first-child { margin-top: 0; }
+
+.card {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 12px 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.card + .card { margin-top: 10px; }
+
+.hint {
+  margin: 8px 0 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.hint a { color: var(--accent-dark); text-decoration: underline; }
+
+.empty {
+  margin: 0;
+  padding: 6px 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+/* --- Navigation zwischen den Aktivitäten --- */
+.page-nav {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 0 auto 14px;
+  max-width: 480px;
+}
+
+.page-nav a {
+  flex: 1;
+  text-align: center;
+  padding: 7px 8px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.page-nav a.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* Rückmeldung beim Antippen, seit das blaue Aufleuchten des Browsers weg ist. */
+.page-nav a:active { background: var(--press); }
+
+.page-nav a.active:active { background: var(--accent-dark); border-color: var(--accent-dark); }
+
+/* --- Knöpfe --- */
+button { font-family: inherit; }
+
+.btn {
+  font-family: inherit;
+  font-size: 0.82rem;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--field);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.btn:active { background: var(--press); }
+
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.btn.danger { border-color: var(--bad-border); color: var(--bad); }
+
+.btn.danger:active { background: #f7e7e3; }
+
+.icon-btn {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  background: var(--field);
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.icon-btn:active { background: var(--press); }
+
+.icon-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.primary-btn {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 13px;
+  border: none;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.98rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(201,118,47,0.25);
+}
+
+.primary-btn:active { background: var(--accent-dark); }
+
+.primary-btn:disabled {
+  background: #e3d8cc;
+  color: #fffdfb;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.foot {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+/* --- Eingabefelder --- */
+input[type="text"], input[type="date"], textarea, select {
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.92rem;
+  color: var(--text);
+  background: var(--field);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 11px;
+}
+
+textarea { resize: vertical; min-height: 68px; line-height: 1.5; }
+
+input::placeholder, textarea::placeholder { color: #b8afa4; }
+
+.field + .field { margin-top: 10px; }
+
+.field-label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin: 0 2px 5px;
+}
+
+/* --- Auswahlmarken (Fächer, Schnelltermine) --- */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.chip {
+  font-family: inherit;
+  font-size: 0.8rem;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--field);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.chip:active { background: var(--press); }
+
+.chip[aria-pressed="true"] {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent-dark);
+}
+
+/* Fächer tragen ihre eigene Farbe; der Punkt zeigt sie auch in der Liste. */
+.dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: 1px;
+  background: var(--muted);
+}
+
+/* --- Aufgabenliste --- */
+.tasks { display: block; }
+
+.task {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.task:first-child { padding-top: 2px; }
+
+.task:last-child { border-bottom: none; padding-bottom: 2px; }
+
+.task .box {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  border-radius: 7px;
+  border: 1.5px solid #d9cfc2;
+  background: var(--field);
+  color: transparent;
+  font-size: 0.8rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.task .box:active { background: var(--press); }
+
+.task .box.done {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.task .body {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+}
+
+.task .title {
+  font-size: 0.94rem;
+  line-height: 1.4;
+  overflow-wrap: break-word;
+}
+
+.task.done .title { color: var(--muted); text-decoration: line-through; }
+
+.task .meta {
+  margin-top: 3px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.45;
+  overflow-wrap: break-word;
+}
+
+.task .meta .due.soon { color: var(--accent-dark); }
+
+.task .meta .due.late { color: var(--bad); font-weight: 600; }
+
+.task .note {
+  margin-top: 3px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.45;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}

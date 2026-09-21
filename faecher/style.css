@@ -1,0 +1,26 @@
+/* Nur für die Aktivität „Fächer": eine Zeile je Fach aus Farbpunkt, Namensfeld
+   und Löschknopf. Alles Gemeinsame steht in shared/base.css. */
+
+.fitem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fitem + .fitem { margin-top: 8px; }
+
+.fitem input { flex: 1; min-width: 0; }
+
+/* Der Farbpunkt ist selbst der Knopf zum Wechseln der Farbe. */
+.farbe {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
+}
+
+.farbe:active { transform: scale(0.92); }

@@ -1,0 +1,10 @@
+/* Nur für die Aktivität „Eintragen": das Datumsfeld unter den Schnellmarken.
+   Alles Gemeinsame steht in shared/base.css. */
+
+.datum-zeile { margin-top: 10px; }
+
+/* Safari zeigt das Datumsfeld sonst schmaler als die übrigen Felder. */
+#datum { min-height: 42px; }
+
+/* Ein leeres Datumsfeld („Kein Termin") soll nicht wie ein Fehler aussehen. */
+#datum:invalid { color: var(--muted); }

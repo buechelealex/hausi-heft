@@ -1,0 +1,12 @@
+/* Nur für die Aktivität „Archiv": der Löschknopf am rechten Rand einer Zeile.
+   Alles Gemeinsame steht in shared/base.css. */
+
+/* Der Knopf steht neben dem Text, nicht darunter — und bleibt dezent, damit
+   das endgültige Löschen nicht wie die naheliegende Handlung aussieht. */
+.task .icon-btn {
+  align-self: center;
+  width: 28px;
+  height: 28px;
+  font-size: 0.95rem;
+  color: #b8afa4;
+}

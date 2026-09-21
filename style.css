@@ -1,0 +1,29 @@
+/* Nur für die Aktivität „Heft" (index.html): die Filterleiste, die Zwischen-
+   überschriften mit Anzahl und der Übergang beim Abhaken.
+   Alles Gemeinsame steht in shared/base.css. */
+
+.filter-row { margin-bottom: 14px; }
+
+/* Zwischenüberschrift mit der Anzahl am rechten Rand. */
+.section-title.group {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.section-title.group .count {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+
+/* Abgehakt gleitet die Zeile kurz zur Seite, bevor die Liste neu gezeichnet
+   wird — sonst verschwindet sie ohne erkennbaren Grund. */
+.task { transition: opacity 0.18s ease, transform 0.18s ease; }
+
+.task.gone { opacity: 0; transform: translateX(14px); }
+
+/* Der Hinweis auf den gesperrten Speicher — auffälliger als ein normaler Tipp. */
+.card.warn { border-left: 3px solid var(--accent); }
+
+.card.warn .hint { margin: 0; color: var(--accent-dark); }
