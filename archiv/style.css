@@ -1,4 +1,5 @@
-/* Nur für die Aktivität „Archiv": der Löschknopf am rechten Rand einer Zeile.
+/* Nur für die Aktivität „Archiv": der Löschknopf am rechten Rand einer Zeile
+   und die Tage nebeneinander am Laptop.
    Alles Gemeinsame steht in shared/base.css. */
 
 /* Der Knopf steht neben dem Text, nicht darunter — und bleibt dezent, damit
@@ -9,4 +10,28 @@
   height: 28px;
   font-size: 0.95rem;
   color: #b8afa4;
+}
+
+
+/* --- Laptop: ein Tag je Spalte ------------------------------------------ */
+
+@media (min-width: 860px) {
+
+  #liste {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 22px;
+    align-content: start;
+  }
+
+  #liste > .group { margin-top: 0; }
+
+  #liste > .card { grid-column: 1 / -1; }
+
+  .archiv-layout .foot { margin-top: 26px; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  /* Erst beim Überfahren der Zeile wird das Löschen deutlich. */
+  .task .icon-btn:hover { color: var(--bad); border-color: var(--bad-border); background: #fdf3f0; }
 }

@@ -11,19 +11,24 @@
 <meta name="apple-mobile-web-app-title" content="Hausaufgaben">
 <meta name="description" content="Hausaufgabenheft für den Browser. Alle Einträge bleiben auf dem Gerät.">
 <title>Hausaufgabenheft</title>
-<link rel="stylesheet" href="shared/base.css?v=1">
-<link rel="stylesheet" href="style.css?v=1">
+<link rel="stylesheet" href="shared/base.css?v=2">
+<link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 
-<header>
-  <h1>Hausaufgabenheft</h1>
-  <p id="summary"></p>
-</header>
+<div class="topbar">
+  <div class="topbar-inner">
+    <header>
+      <h1>Hausaufgabenheft</h1>
+      <p id="summary"></p>
+    </header>
+    <nav class="page-nav" id="nav"></nav>
+  </div>
+</div>
 
-<nav class="page-nav" id="nav"></nav>
-
-<main class="container" data-view="heft">
+<!-- Am Laptop stehen Knopf, Filter und Hinweise links, die Aufgaben rechts.
+     Am Handy fliesst alles untereinander in der Reihenfolge des Quelltexts. -->
+<main class="container heft-layout" data-view="heft">
 
   <!-- Hinweis, falls der Browser nichts speichern darf (privates Fenster). -->
   <div id="warnSlot"></div>
@@ -38,9 +43,13 @@
 
   <div class="foot" id="installSlot"></div>
 
+  <p class="kbd-hint">
+    <kbd>N</kbd> neue Aufgabe · <kbd>A</kbd> Archiv · <kbd>F</kbd> Fächer
+  </p>
+
 </main>
 
-<script src="shared/core.js?v=1"></script>
-<script src="scripts.js?v=1"></script>
+<script src="shared/core.js?v=2"></script>
+<script src="scripts.js?v=2"></script>
 </body>
 </html>

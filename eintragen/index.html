@@ -10,57 +10,73 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Hausaufgaben">
 <title>Hausaufgabe eintragen</title>
-<link rel="stylesheet" href="../shared/base.css?v=1">
-<link rel="stylesheet" href="style.css?v=1">
+<link rel="stylesheet" href="../shared/base.css?v=2">
+<link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 
-<header>
-  <h1 id="pageTitle">Neue Hausaufgabe</h1>
-  <p id="pageNote"></p>
-</header>
-
-<nav class="page-nav" id="nav"></nav>
-
-<main class="container" data-view="eintragen">
-
-  <p class="section-title">Aufgabe</p>
-  <div class="card">
-    <input type="text" id="titel" maxlength="80" autocomplete="off"
-           placeholder="z. B. Buch S. 42, Nr. 3–5" aria-label="Aufgabe">
+<div class="topbar">
+  <div class="topbar-inner">
+    <header>
+      <h1 id="pageTitle">Neue Hausaufgabe</h1>
+      <p id="pageNote"></p>
+    </header>
+    <nav class="page-nav" id="nav"></nav>
   </div>
+</div>
 
-  <p class="section-title">Fach</p>
-  <div class="card">
-    <div class="chips" id="fachChips"></div>
-    <p class="hint" id="fachHint"></p>
-  </div>
+<!-- Am Laptop stehen Aufgabe und Notiz links, Fach und Termin rechts. -->
+<main class="container form-layout" data-view="eintragen">
 
-  <p class="section-title">Fällig am</p>
-  <div class="card">
-    <div class="chips" id="terminChips"></div>
-    <div class="datum-zeile">
-      <input type="date" id="datum" aria-label="Fällig am">
+  <section class="fsec sec-aufgabe">
+    <p class="section-title">Aufgabe</p>
+    <div class="card">
+      <input type="text" id="titel" maxlength="80" autocomplete="off"
+             placeholder="z. B. Buch S. 42, Nr. 3–5" aria-label="Aufgabe">
     </div>
-    <p class="hint" id="datumHint"></p>
-  </div>
+  </section>
 
-  <p class="section-title">Notiz</p>
-  <div class="card">
-    <textarea id="notiz" maxlength="500" aria-label="Notiz"
-              placeholder="Optional: Material, Abgabeform, Seitenzahlen …"></textarea>
-  </div>
+  <section class="fsec sec-fach">
+    <p class="section-title">Fach</p>
+    <div class="card">
+      <div class="chips" id="fachChips"></div>
+      <p class="hint" id="fachHint"></p>
+    </div>
+  </section>
 
-  <button type="button" class="primary-btn" id="saveBtn">Eintragen</button>
+  <section class="fsec sec-termin">
+    <p class="section-title">Fällig am</p>
+    <div class="card">
+      <div class="chips" id="terminChips"></div>
+      <div class="datum-zeile">
+        <input type="date" id="datum" aria-label="Fällig am">
+      </div>
+      <p class="hint" id="datumHint"></p>
+    </div>
+  </section>
 
-  <div class="foot">
-    <button type="button" class="btn" id="cancelBtn">Abbrechen</button>
-    <button type="button" class="btn danger" id="deleteBtn" hidden>Löschen</button>
+  <section class="fsec sec-notiz">
+    <p class="section-title">Notiz</p>
+    <div class="card">
+      <textarea id="notiz" maxlength="500" aria-label="Notiz"
+                placeholder="Optional: Material, Abgabeform, Seitenzahlen …"></textarea>
+    </div>
+  </section>
+
+  <div class="actions">
+    <button type="button" class="primary-btn" id="saveBtn">Eintragen</button>
+    <div class="foot">
+      <button type="button" class="btn" id="cancelBtn">Abbrechen</button>
+      <button type="button" class="btn danger" id="deleteBtn" hidden>Löschen</button>
+    </div>
+    <p class="kbd-hint">
+      <kbd>Strg</kbd>+<kbd>Enter</kbd> speichern · <kbd>Esc</kbd> abbrechen
+    </p>
   </div>
 
 </main>
 
-<script src="../shared/core.js?v=1"></script>
-<script src="scripts.js?v=1"></script>
+<script src="../shared/core.js?v=2"></script>
+<script src="scripts.js?v=2"></script>
 </body>
 </html>

@@ -4,7 +4,11 @@
    style.css in ihrem Ordner.
 
    Optik wie projects.abuechele.de: heller Sandton, weisse Karten, oranger
-   Akzent, Überschriften in Versalien. Alles auf Handybreite ausgelegt. */
+   Akzent, Überschriften in Versalien.
+
+   Aufbau der Datei: zuerst die schmale Ansicht (Handy), danach zwei Blöcke für
+   grosse Bildschirme — ab 860px die Laptop-Aufteilung mit Kopfleiste und
+   mehreren Spalten, dazu die Zustände für die Maus. */
 
 :root {
   --bg: #faf6f2;
@@ -17,9 +21,14 @@
   --border: #ede4d8;
   --field: #fffdfb;
   --press: #f0e9e0;
+  --hover: #fdf8f2;
   --good: #3f7d55;
   --bad: #b04a3a;
   --bad-border: #eccfc9;
+
+  /* Breite des Textkörpers: am Handy eine Spalte, am Laptop der ganze Satz. */
+  --spalte: 480px;
+  --breit: 1120px;
 }
 
 * { box-sizing: border-box; }
@@ -54,10 +63,14 @@ body {
   padding: 16px 12px calc(28px + env(safe-area-inset-bottom, 0px));
 }
 
-header {
-  text-align: center;
-  margin-bottom: 12px;
+/* --- Kopfleiste: Titel, Kurzstand und Navigation --- */
+
+.topbar-inner {
+  max-width: var(--spalte);
+  margin: 0 auto;
 }
+
+header { text-align: center; margin-bottom: 12px; }
 
 header h1 {
   font-size: 1.35rem;
@@ -71,7 +84,7 @@ header p {
   font-size: 0.84rem;
 }
 
-.container { max-width: 480px; margin: 0 auto; }
+.container { max-width: var(--spalte); margin: 0 auto; }
 
 .section-title {
   font-size: 0.74rem;
@@ -110,13 +123,26 @@ header p {
   line-height: 1.6;
 }
 
+/* Tastaturhinweise sind nur dort sinnvoll, wo es eine Tastatur gibt. */
+.kbd-hint { display: none; }
+
+kbd {
+  font-family: inherit;
+  font-size: 0.72rem;
+  border: 1px solid var(--border);
+  background: var(--field);
+  border-radius: 5px;
+  padding: 1px 5px;
+  color: var(--text);
+}
+
 /* --- Navigation zwischen den Aktivitäten --- */
 .page-nav {
   display: flex;
   justify-content: center;
   gap: 6px;
   margin: 0 auto 14px;
-  max-width: 480px;
+  max-width: var(--spalte);
 }
 
 .page-nav a {
@@ -233,8 +259,6 @@ textarea { resize: vertical; min-height: 68px; line-height: 1.5; }
 
 input::placeholder, textarea::placeholder { color: #b8afa4; }
 
-.field + .field { margin-top: 10px; }
-
 .field-label {
   display: block;
   font-size: 0.78rem;
@@ -276,8 +300,6 @@ input::placeholder, textarea::placeholder { color: #b8afa4; }
 }
 
 /* --- Aufgabenliste --- */
-.tasks { display: block; }
-
 .task {
   display: flex;
   align-items: flex-start;
@@ -351,4 +373,156 @@ input::placeholder, textarea::placeholder { color: #b8afa4; }
   line-height: 1.45;
   white-space: pre-wrap;
   overflow-wrap: break-word;
+}
+
+/* --- Gruppe aus Zwischenüberschrift und Karte ---
+   Am Handy stehen die Gruppen untereinander, am Laptop nebeneinander; dafür
+   gehören Überschrift und Karte zusammen in einen Block. */
+.group { display: block; }
+
+.group .section-title { margin-top: 0; }
+
+.group + .group { margin-top: 18px; }
+
+/* Zwischenüberschrift mit der Anzahl am rechten Rand. */
+.section-title.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.section-title.head .count {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+
+
+/* ==========================================================================
+   Laptop und Tablet im Querformat — ab hier zählt die Breite, nicht die Höhe.
+   Statt einer langen Spalte in der Bildschirmmitte: eine feste Kopfleiste,
+   eine Randspalte für die Bedienung und mehrere Spalten für den Inhalt.
+   ========================================================================== */
+
+@media (min-width: 860px) {
+
+  body {
+    font-size: 16px;
+    padding: 0 0 48px;
+  }
+
+  /* Die Kopfleiste bleibt beim Blättern stehen — auf einem flachen Bildschirm
+     ist der Weg nach oben sonst weit. */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: rgba(255, 250, 244, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 28px;
+  }
+
+  .topbar-inner {
+    max-width: var(--breit);
+    padding: 11px 28px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  /* Titel und Kurzstand stehen nebeneinander statt untereinander. */
+  header {
+    text-align: left;
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  header h1 { font-size: 1.15rem; }
+
+  header p { font-size: 0.85rem; white-space: nowrap; }
+
+  .page-nav {
+    margin: 0;
+    max-width: none;
+    flex: 0 0 auto;
+  }
+
+  .page-nav a { flex: 0 0 auto; padding: 7px 18px; }
+
+  .container {
+    max-width: var(--breit);
+    padding: 0 28px;
+  }
+
+  .card { padding: 14px 18px; }
+
+  /* Die Zeile darf über die Kartenkanten hinausgehen, damit die Maus eine
+     durchgehende Fläche zum Anfahren hat. */
+  .task {
+    margin: 0 -8px;
+    padding: 11px 8px;
+    border-radius: 9px;
+  }
+
+  .task:first-child { padding-top: 6px; }
+
+  .task:last-child { padding-bottom: 6px; }
+
+  .kbd-hint {
+    display: block;
+    margin: 14px 2px 0;
+    font-size: 0.76rem;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+}
+
+
+/* ==========================================================================
+   Mit Maus statt Finger: Zustände beim Überfahren. Am Touchgerät bleiben sie
+   aus, weil dort sonst der zuletzt getippte Knopf hängenbleibt.
+   ========================================================================== */
+
+@media (hover: hover) and (pointer: fine) {
+
+  .page-nav a:hover { border-color: var(--accent); color: var(--accent-dark); }
+
+  .page-nav a.active:hover {
+    background: var(--accent-dark);
+    border-color: var(--accent-dark);
+    color: #fff;
+  }
+
+  .btn:hover { border-color: var(--accent); background: var(--hover); }
+
+  .btn.danger:hover { border-color: var(--bad); background: #fdf3f0; }
+
+  .btn:disabled:hover { border-color: var(--border); background: var(--field); }
+
+  .icon-btn:hover { border-color: var(--accent); color: var(--accent-dark); }
+
+  .chip:hover { border-color: var(--accent); color: var(--accent-dark); }
+
+  .primary-btn:hover {
+    background: var(--accent-dark);
+    box-shadow: 0 6px 18px rgba(201,118,47,0.3);
+  }
+
+  .primary-btn:disabled:hover { background: #e3d8cc; box-shadow: none; }
+
+  .task:hover { background: var(--hover); }
+
+  .task .body:hover .title { color: var(--accent-dark); }
+
+  .task .box:hover { border-color: var(--accent); }
+
+  .task .box.done:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+
+  .hint a:hover { color: var(--accent); }
 }

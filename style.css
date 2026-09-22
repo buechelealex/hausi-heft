@@ -1,21 +1,8 @@
-/* Nur für die Aktivität „Heft" (index.html): die Filterleiste, die Zwischen-
-   überschriften mit Anzahl und der Übergang beim Abhaken.
+/* Nur für die Aktivität „Heft" (index.html): die Aufteilung der Seite, die
+   Filterleiste und der Übergang beim Abhaken.
    Alles Gemeinsame steht in shared/base.css. */
 
 .filter-row { margin-bottom: 14px; }
-
-/* Zwischenüberschrift mit der Anzahl am rechten Rand. */
-.section-title.group {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.section-title.group .count {
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0;
-}
 
 /* Abgehakt gleitet die Zeile kurz zur Seite, bevor die Liste neu gezeichnet
    wird — sonst verschwindet sie ohne erkennbaren Grund. */
@@ -27,3 +14,65 @@
 .card.warn { border-left: 3px solid var(--accent); }
 
 .card.warn .hint { margin: 0; color: var(--accent-dark); }
+
+
+/* --- Laptop: Bedienung links, Aufgaben rechts ---------------------------- */
+
+@media (min-width: 860px) {
+
+  /* Eine feste Randspalte, daneben die Aufgaben. Die letzte Zeile bekommt den
+     Rest der Höhe, damit die Einträge der Randspalte oben zusammenbleiben,
+     auch wenn die Liste daneben lang wird. */
+  .heft-layout {
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto 1fr;
+    grid-template-areas:
+      "neu     liste"
+      "warnung liste"
+      "filter  liste"
+      "install liste"
+      "tasten  liste";
+    column-gap: 32px;
+    align-items: start;
+  }
+
+  #addBtn     { grid-area: neu; margin: 0 0 16px; }
+  #warnSlot   { grid-area: warnung; }
+  #filterSlot { grid-area: filter; }
+  #liste      { grid-area: liste; }
+  #installSlot { grid-area: install; }
+  .kbd-hint   { grid-area: tasten; }
+
+  /* Leere Behälter sollen keine Lücke in die Randspalte reissen. */
+  #warnSlot:not(:empty) { margin-bottom: 16px; }
+  #installSlot:empty { margin: 0; }
+
+  /* Im schmalen Seitenstreifen stehen die Fächer untereinander wie ein Menü. */
+  .filter-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    margin-bottom: 0;
+  }
+
+  .filter-row .chip {
+    text-align: left;
+    border-radius: 10px;
+    padding: 8px 12px;
+  }
+
+  /* Die Gruppen nebeneinander: auf einem flachen Bildschirm ist Breite da,
+     Höhe nicht. Jede Gruppe bleibt als Block zusammen. */
+  #liste {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 22px 22px;
+    align-content: start;
+  }
+
+  #liste > .group { margin-top: 0; }
+
+  /* „Alles erledigt" steht über die ganze Breite, nicht in einer Spalte. */
+  #liste > .card { grid-column: 1 / -1; }
+}

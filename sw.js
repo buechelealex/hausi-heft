@@ -7,7 +7,7 @@
 // WICHTIG beim Ändern von CSS oder JavaScript: VERSION hier genauso hochzählen
 // wie die ?v=-Marken in den vier HTML-Dateien. Der Cache hängt am Namen, ein
 // neuer Name ersetzt den alten komplett.
-const VERSION = "v1";
+const VERSION = "v2";
 const CACHE = "hausi-heft-" + VERSION;
 
 // Jede Aktivität liegt in ihrem eigenen Ordner und bringt ihre eigene
@@ -19,16 +19,16 @@ const ASSETS = [
   "./faecher/",
   "./archiv/",
   "./manifest.json",
-  "./shared/base.css?v=1",
-  "./shared/core.js?v=1",
-  "./style.css?v=1",
-  "./scripts.js?v=1",
-  "./eintragen/style.css?v=1",
-  "./eintragen/scripts.js?v=1",
-  "./faecher/style.css?v=1",
-  "./faecher/scripts.js?v=1",
-  "./archiv/style.css?v=1",
-  "./archiv/scripts.js?v=1",
+  "./shared/base.css?v=2",
+  "./shared/core.js?v=2",
+  "./style.css?v=2",
+  "./scripts.js?v=2",
+  "./eintragen/style.css?v=2",
+  "./eintragen/scripts.js?v=2",
+  "./faecher/style.css?v=2",
+  "./faecher/scripts.js?v=2",
+  "./archiv/style.css?v=2",
+  "./archiv/scripts.js?v=2",
   "./icon-192.png?v=1",
   "./icon-512.png?v=1",
   "./icon-maskable-512.png?v=1"

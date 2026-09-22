@@ -1,5 +1,9 @@
-/* Nur für die Aktivität „Eintragen": das Datumsfeld unter den Schnellmarken.
-   Alles Gemeinsame steht in shared/base.css. */
+/* Nur für die Aktivität „Eintragen": die Abschnitte des Formulars und die
+   Knopfzeile darunter. Alles Gemeinsame steht in shared/base.css. */
+
+/* Die Überschrift steht immer zuoberst im Abschnitt, darum kommt der Abstand
+   zwischen den Abschnitten von hier und nicht von der Überschrift. */
+.fsec + .fsec { margin-top: 18px; }
 
 .datum-zeile { margin-top: 10px; }
 
@@ -8,3 +12,54 @@
 
 /* Ein leeres Datumsfeld („Kein Termin") soll nicht wie ein Fehler aussehen. */
 #datum:invalid { color: var(--muted); }
+
+
+/* --- Laptop: zwei Spalten, Knopfzeile über die volle Breite -------------- */
+
+@media (min-width: 860px) {
+
+  .form-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      "aufgabe fach"
+      "notiz   termin"
+      "aktion  aktion";
+    column-gap: 32px;
+    row-gap: 20px;
+    align-items: start;
+  }
+
+  .fsec + .fsec { margin-top: 0; }
+
+  .sec-aufgabe { grid-area: aufgabe; }
+  .sec-fach    { grid-area: fach; }
+  .sec-termin  { grid-area: termin; }
+  .sec-notiz   { grid-area: notiz; }
+  .actions     { grid-area: aktion; }
+
+  /* Die Aufgabe ist das Wichtigste auf der Seite — entsprechend gross. */
+  #titel { font-size: 1.05rem; padding: 12px 13px; }
+
+  /* Platz da: lieber gleich ein paar Zeilen Notiz sehen. */
+  #notiz { min-height: 150px; }
+
+  /* Speichern links, Abbrechen und Löschen am rechten Rand — dazwischen der
+     Tastaturhinweis. */
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 4px;
+  }
+
+  .actions .primary-btn {
+    width: auto;
+    min-width: 220px;
+    margin: 0;
+  }
+
+  .actions .foot { margin: 0 0 0 auto; order: 3; }
+
+  .actions .kbd-hint { margin: 0; }
+}

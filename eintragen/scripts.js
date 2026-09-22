@@ -90,9 +90,14 @@
 
   /* ---------- Speichern ---------- */
 
+  /* Der Seitenwechsel nach dem Speichern braucht einen Augenblick. Bis dahin
+     darf kein zweiter Tastendruck denselben Eintrag noch einmal anlegen. */
+  var laeuftSchon = false;
+
   function speichern() {
     var titel = entwurf.titel.trim();
-    if (!titel) return;
+    if (!titel || laeuftSchon) return;
+    laeuftSchon = true;
 
     if (bestehend) {
       bestehend.titel = titel;
@@ -112,7 +117,7 @@
       });
     }
     C.save();
-    C.go(bestehend && bestehend.erledigt ? "archiv" : "heft");
+    zurueck();
   }
 
   /* ---------- Bedienung ---------- */
@@ -123,8 +128,11 @@
     entwurf.titel = e.target.value;
     byId("saveBtn").disabled = !entwurf.titel.trim();
   };
-  /* Enter im Titelfeld speichert — wie das Absenden eines Formulars. */
-  titelFeld.onkeydown = function (e) { if (e.key === "Enter") speichern(); };
+  /* Enter im Titelfeld speichert — wie das Absenden eines Formulars. Mit Strg
+     übernimmt das die Tastaturbedienung weiter unten. */
+  titelFeld.onkeydown = function (e) {
+    if (e.key === "Enter" && !e.ctrlKey && !e.metaKey) speichern();
+  };
 
   var notizFeld = byId("notiz");
   notizFeld.value = entwurf.notiz;
@@ -137,9 +145,17 @@
 
   byId("saveBtn").onclick = speichern;
 
-  byId("cancelBtn").onclick = function () {
-    C.go(bestehend && bestehend.erledigt ? "archiv" : "heft");
-  };
+  /* Zurück dorthin, wo die Aufgabe steht: Erledigtes kam aus dem Archiv. */
+  function zurueck() { C.go(bestehend && bestehend.erledigt ? "archiv" : "heft"); }
+
+  byId("cancelBtn").onclick = zurueck;
+
+  /* Am Laptop: Strg+Enter speichert von überall auf der Seite, Esc bricht ab.
+     Beides auch aus dem Notizfeld heraus, wo Enter einen Absatz macht. */
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); speichern(); }
+    else if (e.key === "Escape") { e.preventDefault(); zurueck(); }
+  });
 
   byId("deleteBtn").onclick = function () {
     if (!bestehend) return;

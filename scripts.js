@@ -111,13 +111,16 @@
       });
       if (!teil.length) return;
 
-      wrap.append(el("p", { class: "section-title group" },
-        el("span", {}, g.titel),
-        el("span", { class: "count" }, String(teil.length))));
-
       var karte = el("div", { class: "card" });
       teil.forEach(function (a) { karte.append(zeile(a)); });
-      wrap.append(karte);
+
+      /* Überschrift und Karte bilden einen Block — am Laptop stehen mehrere
+         solcher Blöcke nebeneinander. */
+      wrap.append(el("section", { class: "group" },
+        el("p", { class: "section-title head" },
+          el("span", {}, g.titel),
+          el("span", { class: "count" }, String(teil.length))),
+        karte));
     });
   }
 
@@ -150,6 +153,19 @@
   /* ---------- Start ---------- */
 
   byId("addBtn").onclick = function () { C.go("eintragen"); };
+
+  /* Am Laptop liegt die Hand auf der Tastatur: N legt an, A und F wechseln die
+     Aktivität. Nur wenn gerade kein Feld beschrieben wird und keine Sondertaste
+     mitläuft — sonst käme das N mitten im Text an. */
+  document.addEventListener("keydown", function (e) {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    var ziel = e.target.tagName;
+    if (ziel === "INPUT" || ziel === "TEXTAREA" || ziel === "SELECT") return;
+    var taste = e.key.toLowerCase();
+    if (taste === "n") { e.preventDefault(); C.go("eintragen"); }
+    else if (taste === "a") C.go("archiv");
+    else if (taste === "f") C.go("faecher");
+  });
 
   C.start(zeichneHeft);
 

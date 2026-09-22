@@ -26,10 +26,16 @@
 
     /* Zuletzt Abgehaktes zuoberst, Tag für Tag. */
     gruppiere(fertig).forEach(function (g) {
-      liste.append(el("p", { class: "section-title" }, tagTitel(g.tag)));
       var karte = el("div", { class: "card" });
       g.eintraege.forEach(function (a) { karte.append(zeile(a)); });
-      liste.append(karte);
+
+      /* Überschrift und Karte bilden einen Block — am Laptop stehen mehrere
+         Tage nebeneinander. */
+      liste.append(el("section", { class: "group" },
+        el("p", { class: "section-title head" },
+          el("span", {}, tagTitel(g.tag)),
+          el("span", { class: "count" }, String(g.eintraege.length))),
+        karte));
     });
   }
 

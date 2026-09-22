@@ -40,11 +40,37 @@ manifest.json  sw.js  icon-*.png  Installation als App und Offlinebetrieb
 * **Abhaken** — ein Tipp auf das Kästchen. Die Aufgabe wandert ins Archiv und
   lässt sich dort mit demselben Kästchen zurückholen.
 * **Öffnen** — ein Tipp auf den Text bearbeitet die Aufgabe.
-* **Filtern** — die Marken über der Liste zeigen nur ein Fach, sobald in
-  mehreren Fächern etwas offen ist.
+* **Filtern** — die Marken zeigen nur ein Fach, sobald in mehreren Fächern
+  etwas offen ist.
 
 Das Heft gruppiert nach Termin: Überfällig, Heute, Morgen, Diese Woche, Später,
 Ohne Termin.
+
+## Zwei Ansichten
+
+Die Gestaltung richtet sich nach der Breite des Fensters, nicht nach dem Gerät:
+
+* **schmal (Handy)** — eine Spalte, Titel und Navigation mittig, die Gruppen
+  untereinander.
+* **ab 860 px (Laptop im Querformat)** — eine Kopfleiste, die beim Blättern
+  stehen bleibt: links Titel und Kurzstand, rechts die Navigation. Im Heft
+  stehen Knopf, Fachfilter und Hinweise in einer Randspalte, die Aufgaben-
+  gruppen daneben nebeneinander. Das Formular zum Eintragen liegt in zwei
+  Spalten: links Aufgabe und Notiz, rechts Fach und Termin.
+
+Mit einer Maus (`hover: hover`) kommen Zustände beim Überfahren dazu; am
+Touchgerät bleiben sie aus, weil dort sonst der zuletzt getippte Knopf
+hängenbleibt.
+
+### Tastatur
+
+| Taste | Wirkung |
+|-------|---------|
+| `N` | neue Hausaufgabe (im Heft) |
+| `A` / `F` | Archiv / Fächer (im Heft) |
+| `Strg`+`Enter` | speichern (beim Eintragen, auch aus der Notiz) |
+| `Esc` | abbrechen (beim Eintragen) |
+| `Enter` | speichern, solange der Kursor im Aufgabenfeld steht |
 
 ## Speicher
 
